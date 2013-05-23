@@ -1,34 +1,29 @@
-direction = '../trainingSet/rawData/pictures/';
+addpath('functions');
+
+direction = '../trainingSet/rawData/fonts/';
 
 % get folders info under raw data directions
-folders = dir(direction);
-%folders = setdiff({folders.name},{'.','..'});
-numFolders = length(folders);
+files = dir(direction);
+numFiles = length(files);
 
 trainData = [];
 trainLabel = [];
-crossValidationData = [];
-crossValidationLabel = [];
-testData = [];
-testLabel = [];
 
-for i = 3:numFolders 
-    path = strcat(direction, folders(i).name, '/');
-    pngFiles = dir(strcat(path, '*.png'));
-    numFiles = length(pngFiles);
-    index = eval(folders(i).name(7:9));
-    
-    % create train data
+for i = 3:numFiles
+    path = strcat(direction, files(i).name)
+    characters = scanImage(path);
+
     result = [];
-    for j = 1:numFiles
-        temp = imread(strcat(path, pngFiles(j).name));
-        level = graythresh(temp);
-        temp = im2bw(temp, level);
-        result = cat(1, result, temp(:)');
+    for j = 1:length(characters)
+        result = [result; characters(j).image];
     end
-    trainData = cat(1, trainData, result);
-    labels = ones(numFiles, 1) * index;
-    trainLabel = cat(1, trainLabel, labels);
+    figure(i);
+    displayData(result);
+    if size(result, 1) == 62
+        trainData = [trainData; result];
+        labels = (1:62)';
+        trainLabel = [trainLabel; labels];
+    end
 end
 
 save '../data/train.mat' trainData trainLabel

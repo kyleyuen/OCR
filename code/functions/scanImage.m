@@ -1,22 +1,18 @@
-function [horizontal, vertical] = scanImage(path)
+% scan then given image to analysis character position in the image
+function characters = scanImage(path)
 
-% load the picture
+% load the picture and transfer it to black and white
 picture = imread(path);
+picture = rgb2gray(picture);
 level = graythresh(picture);
 picture = im2bw(picture, level);
 
-% create array to store pixels
-[height, width] = size(picture);
-horizontal = zeros(height, 1);
-vertical = zeros(width, 1);
+% scan lines in picture
+lines = scanLines(picture);
+% for i = 1:length(lines)
+%     figure(i);
+%     imshow(picture(lines(i, 1):lines(i, 2), :));
+% end
 
-% scan and calculate the number of black pixels in every line
-for i = 1:height
-    result = 0;
-    for j = 1:width
-        if picture(i, j) == 1
-            result = result + 1;
-        end
-    end
-    horizontal(i) = result;
-end
+% scan characters in lines
+characters = scanCharacters(picture, lines);
