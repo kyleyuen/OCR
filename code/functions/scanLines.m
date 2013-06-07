@@ -16,6 +16,10 @@ for i = 1:height
     horizontal(i) = result;
 end
 
+% bar number of pixels in document
+% figure(99);
+% bar(horizontal);
+
 % cut off lines from picture
 expectation = mean(horizontal);
 sigma = sqrt(std(horizontal));

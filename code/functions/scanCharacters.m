@@ -22,8 +22,10 @@ for k = 1:size(lines, 1)
         vertical(j) = result;
     end
     
-%     figure(k);
+    % bar number of  pixels in each line
+%     figure(k * 10);
 %     bar(vertical);
+    
     % scan words in this line
     words = scanWords(vertical);
     

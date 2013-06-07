@@ -22,7 +22,7 @@ function varargout = untitled(varargin)
 
 % Edit the above text to modify the response to help untitled
 
-% Last Modified by GUIDE v2.5 09-May-2013 12:27:28
+% Last Modified by GUIDE v2.5 31-May-2013 09:58:32
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -201,3 +201,34 @@ for i = 1:length(text)
     resultMessage = [resultMessage, message];
 end
 set(handles.OCRResultText, 'String', resultMessage);
+
+
+% --- If Enable == 'on', executes on mouse press in 5 pixel border.
+% --- Otherwise, executes on mouse press in 5 pixel border or over OCRResultText.
+function OCRResultText_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to OCRResultText (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+function OCRResultText_Callback(hObject, eventdata, handles)
+% hObject    handle to OCRResultText (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of OCRResultText as text
+%        str2double(get(hObject,'String')) returns contents of OCRResultText as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function OCRResultText_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to OCRResultText (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
